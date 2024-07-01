@@ -1,12 +1,12 @@
-# Library Management System
+# Student Management System
 
-This library management that you can manage and access specific books finding by author it a command-line application that you can access and manipulate using through commands.
+Command-line application that add students to university apply courses and instructors that manages student add, update using command line interface.
 
 ### Features:
 
-- Add, delete, and update books from library.
-- Generate monthly reports and summaries.
-- Budget tracking and expense predictions.
+- Add, delete, and update students from university.
+- find students with id and update stidents details.
+- add and remove couses from students list.
 - Data storage using JSON or CSV files.
 
 ## Table of Contents
