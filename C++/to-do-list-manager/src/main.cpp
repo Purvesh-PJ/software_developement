@@ -1,4 +1,4 @@
-#include "TaskManager.h"
+#include "../include/TaskManager.h"
 #include <iostream>
 
 int main () {
@@ -31,10 +31,12 @@ int main () {
                 manager.deleteTask(id);
                 break;
             }
-
         }
-
     } while(choice != 4);
 
     return 0;
 }
+
+/*
+    Command for running program : g++ -I../include -o main main.cpp Task.cpp TaskManager.cpp
+*/

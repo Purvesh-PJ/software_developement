@@ -11,7 +11,6 @@ class TaskManager {
     int nextId;
 
     public:
-
     TaskManager();
 
     void addTask(const std::string& description);

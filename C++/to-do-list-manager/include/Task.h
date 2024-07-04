@@ -4,8 +4,9 @@
 #include <string>
 
 class Task {
-    public:
     int id;
+    public:
+    int getId() const { return id; }
     std::string description;
     bool isCompleted;
 
