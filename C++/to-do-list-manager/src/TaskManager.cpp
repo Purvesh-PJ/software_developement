@@ -9,6 +9,7 @@ void TaskManager::addTask(const std::string& description){
 };
 
 void TaskManager::viewTasks() const{
+    std::cout << "########## CREATED TASKS ##########"<< std::endl;
     for(const auto& task : tasks){
         task.display();
     }
