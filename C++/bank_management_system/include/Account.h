@@ -1,6 +1,5 @@
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
-
 #include <string>
 
 class Account {
@@ -20,8 +19,8 @@ class Account {
         int getAccountNumber() const;
         std::string getName() const;
         double getBalance() const;
-        void displayAccountDetails();
+        void displayAccountDetails() const;
 };
 
 
-#endif;
+#endif
