@@ -1,18 +1,37 @@
 // main.cpp
 #include <iostream>
 
-void printNumbers(int count) {
-    for (int i = 1; i <= count; ++i) {
-        std::cout << "Number: " << i << std::endl;
+namespace numbers {
+
+    class autoNum {
+        private: 
+            int num = 5;
+        public:
+            void giveNum(){
+                std::cout << "num : " << num << std::endl;
+            }
+
+            void setNum(int num){
+                this->num = num;
+            }
+    };
+
+    void printNumbers(int count) {
+        for (int i = 1; i <= count; ++i) {
+            std::cout << "Number: " << i << std::endl;
+        }
     }
 }
 
+
 int main() {
     int num = 5; // Change this value to test different inputs
-    std::cout << "Starting the program..." << std::endl;
 
-    printNumbers(num);
+    numbers::printNumbers(num);
 
-    std::cout << "Ending the program." << std::endl;
+    numbers::autoNum obj;
+    obj.giveNum();
+    obj.setNum(7);
+    obj.giveNum();
     return 0;
 }

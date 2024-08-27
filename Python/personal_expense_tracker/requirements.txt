@@ -1,0 +1,2 @@
+tk  # Tkinter (often comes pre-installed with Python)
+pandas  # Optional, for handling data more effectively
