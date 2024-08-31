@@ -1,73 +1,53 @@
 import tkinter as tk
-from tkinter import font as tkfont
-from tkinter import PhotoImage  # For using icons or images
+from tkinter import font as tkfont, PhotoImage
 from ui.add_expense import add_expense_ui
 from ui.add_income import add_income_ui
 from ui.budget_ui import budget_ui
 from ui.report_ui import report_ui
 
 
-def create_modern_button(parent, text, command, icon=None):
-    """Create a modern styled button with optional icon."""
-    button_font = tkfont.Font(family="Helvetica", size=12, weight="bold")
-
-    button = tk.Button(parent, text=text, font=button_font, command=command, relief="flat",
-                       bg="#007BFF", fg="white", padx=10, pady=10, bd=0, height=2, width=20)
-    if icon:
-        icon_image = PhotoImage(file=icon)  # Load icon image
-        button.config(image=icon_image, compound="left")  # Set icon with text
-        button.image = icon_image  # Keep a reference to avoid garbage collection
-
-    # Modern button styling
-    button.configure(bg="#007BFF", fg="white", borderwidth=0, relief="flat")
-    button.bind("<Enter>", lambda e: button.config(bg="#0056b3"))
-    button.bind("<Leave>", lambda e: button.config(bg="#007BFF"))
-
-    # Apply shadow effect
-    shadow = tk.Label(parent, bg="#0056b3", width=22, height=2)
-    shadow.grid(row=0, column=0, padx=10, pady=10)
-    shadow.place(x=button.winfo_x() + 2, y=button.winfo_y() + 2)
-
-    return button
-
-
 def dashboard_ui(user_id):
     root = tk.Tk()
     root.title("Dashboard")
-    root.geometry("800x600")
-    root.configure(bg="#f7f9fc")
+    root.configure(bg="#f0f4f8")
 
-    # Set a consistent font
-    title_font = tkfont.Font(family="Helvetica", size=24, weight="bold")
+    # Set minimum window size
+    root.minsize(800, 600)
 
-    # Create a frame to hold the content
-    main_frame = tk.Frame(root, bg="#f7f9fc")
-    main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+    # Custom fonts
+    title_font = tkfont.Font(family="Helvetica", size=18, weight="bold")
+    card_font = tkfont.Font(family="Helvetica", size=12, weight="bold")
 
-    # Welcome message
-    welcome_label = tk.Label(main_frame, text=f"Welcome, User {user_id}!", font=title_font, bg="#f7f9fc", fg="#333")
-    welcome_label.pack(pady=(0, 30))
+    # Title
+    tk.Label(root, text=f"Welcome, User {user_id}!", font=title_font, bg="#f0f4f8", fg="#333").pack(pady=20)
 
-    # Button frame
-    button_frame = tk.Frame(main_frame, bg="#f7f9fc")
-    button_frame.pack(fill="both", expand=True)
+    # Create a frame to hold the cards
+    frame = tk.Frame(root, bg="#f0f4f8")
+    frame.pack(pady=20)
 
-    # Create buttons
-    add_expense_button = create_modern_button(button_frame, "Add Expense", lambda: add_expense_ui(user_id))
-    add_income_button = create_modern_button(button_frame, "Add Income", lambda: add_income_ui(user_id))
-    manage_budget_button = create_modern_button(button_frame, "Manage Budget", lambda: budget_ui(user_id))
-    view_reports_button = create_modern_button(button_frame, "View Reports", lambda: report_ui(user_id))
+    # Helper function to create a card
+    def create_card(parent_frame, text, icon_path, command):
+        card = tk.Frame(parent_frame, bg="white", width=200, height=150, relief="flat", bd=2)
+        card.grid_propagate(False)  # Prevents the frame from shrinking to fit the widgets inside
+        card.grid_columnconfigure(0, weight=1)  # Center-align the contents
+        card.grid(row=0, column=parent_frame.grid_size()[0], padx=20, pady=20)
 
-    # Arrange buttons in a grid with spacing
-    add_expense_button.grid(row=0, column=0, padx=20, pady=20, sticky="ew")
-    add_income_button.grid(row=0, column=1, padx=20, pady=20, sticky="ew")
-    manage_budget_button.grid(row=1, column=0, padx=20, pady=20, sticky="ew")
-    view_reports_button.grid(row=1, column=1, padx=20, pady=20, sticky="ew")
+        # Load and display the icon
+        icon = PhotoImage(file=icon_path)  # Provide the path to your icon image
+        icon_label = tk.Label(card, image=icon, bg="white")
+        icon_label.image = icon  # Keep a reference to avoid garbage collection
+        icon_label.grid(row=0, column=0, pady=10)
 
-    # Adjust column and row weights for responsive design
-    button_frame.columnconfigure(0, weight=1)
-    button_frame.columnconfigure(1, weight=1)
-    button_frame.rowconfigure(0, weight=1)
-    button_frame.rowconfigure(1, weight=1)
+        # Card text
+        tk.Label(card, text=text, font=card_font, bg="white", fg="#333").grid(row=1, column=0, pady=5)
+
+        # Button
+        tk.Button(card, text="Open", command=command, bg="#007BFF", fg="white", bd=0, relief="raised").grid(row=2, column=0, pady=10)
+
+    # Create the cards
+    create_card(frame, "Add Expense", "../assets/icons/wallet.png", lambda: add_expense_ui(user_id))
+    create_card(frame, "Add Income", "../assets/icons/coins_hand.png", lambda: add_income_ui(user_id))
+    create_card(frame, "Manage Budget", "../assets/icons/calculator.png", lambda: budget_ui(user_id))
+    create_card(frame, "View Reports", "../assets/icons/reports.png", lambda: report_ui(user_id))
 
     root.mainloop()
