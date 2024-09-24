@@ -1,6 +1,6 @@
 # ui/report_ui.py
 import tkinter as tk
-from report import generate_report
+from src.report import generate_report
 
 
 def report_ui(user_id):

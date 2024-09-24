@@ -1,6 +1,6 @@
 # ui/add_income.py
 import tkinter as tk
-from income import add_income
+from src.income import add_income
 
 
 def add_income_ui(user_id):

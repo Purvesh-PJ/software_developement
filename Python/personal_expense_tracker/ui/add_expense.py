@@ -1,6 +1,6 @@
 # ui/add_expense.py
 import tkinter as tk
-from expenses import add_expense
+from src.expenses import add_expense
 
 
 def add_expense_ui(user_id):

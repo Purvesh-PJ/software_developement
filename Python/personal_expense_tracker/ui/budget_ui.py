@@ -1,6 +1,6 @@
 # ui/budget_ui.py
 import tkinter as tk
-from budget import set_budget, view_budget
+from src.budget import set_budget, view_budget
 
 
 def budget_ui(user_id):

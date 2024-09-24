@@ -38,11 +38,7 @@ def login_ui():
     root.title("Login")
     root.geometry("400x500")
     root.configure(bg="#f7f9fc")
-
-    root.geometry("800x500")  # Fixed size for the window
-
-    # Disable resizing of the window
-    root.resizable(False, False)
+    root.resizable(False, False)  # Disable resizing of the window
 
     # Create a frame to hold the login form
     frame = tk.Frame(root, bg="#FFFFFF", bd=5, padx=10, pady=10)
@@ -58,23 +54,24 @@ def login_ui():
     title_label = tk.Label(frame, text="Login", font=title_font, bg="#FFFFFF", fg="#333")
     title_label.grid(row=0, column=0, columnspan=2, pady=30)
 
-    # Email Label and Entry
+    # Username Label and Entry
     email_label = tk.Label(frame, text="Username", font=label_font, bg="#FFFFFF", fg="#555")
     email_label.grid(row=1, column=0, sticky="w", pady=10)
 
     username_entry = tk.Entry(frame, font=entry_font, width=30, bd=2, relief="flat", bg="#eff6ff", highlightthickness=2,
-                              highlightbackground="#dbeafe", highlightcolor="#60a5fa", )
+                              highlightbackground="#dbeafe", highlightcolor="#60a5fa")
     username_entry.grid(row=2, column=0, pady=10, padx=10, ipadx=8, ipady=8)
     username_entry.bind("<Enter>", on_enter)
     username_entry.bind("<Leave>", on_leave)
+    username_entry.focus()  # Set focus on username entry
 
     # Password Label and Entry
     password_label = tk.Label(frame, text="Password", font=label_font, bg="#FFFFFF", fg="#555")
     password_label.grid(row=3, column=0, sticky="w", pady=10)
 
     password_entry = tk.Entry(frame, font=entry_font, width=30, bd=2, relief="flat", show="*", bg="#eff6ff",
-                              highlightthickness=2, highlightbackground="#dbeafe", highlightcolor="#60a5fa", )
-    password_entry.grid(row=4, column=0, pady=10, padx=10, ipadx=8, ipady=8, )
+                              highlightthickness=2, highlightbackground="#dbeafe", highlightcolor="#60a5fa")
+    password_entry.grid(row=4, column=0, pady=10, padx=10, ipadx=8, ipady=8)
     password_entry.bind("<Enter>", on_enter)
     password_entry.bind("<Leave>", on_leave)
 
@@ -84,8 +81,5 @@ def login_ui():
     login_button.grid(row=5, column=0, columnspan=2, pady=30)
     login_button.bind("<Enter>", on_button_enter)
     login_button.bind("<Leave>", on_button_leave)
-
-    # Apply a shadow to the button
-    login_button.configure()
 
     root.mainloop()

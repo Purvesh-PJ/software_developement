@@ -1,6 +1,6 @@
 # ui/categories_ui.py
 import tkinter as tk
-from categories import add_category, edit_category, delete_category
+from src.categories import add_category, edit_category, delete_category
 
 
 def categories_ui(user_id):
