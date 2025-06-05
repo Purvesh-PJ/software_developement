@@ -3,8 +3,8 @@ import re
 
 # ─── CONFIG ───────────────────────────────────────────────────────────
 # Change this to your project folder:
-PROJECT_ROOT = r"C:\Users\Purve\AndroidStudioProjects\pdf_img_tools_app"
-OUTPUT_FILE  = "android_project_summary.md"
+PROJECT_ROOT = r"D:\skin_disease_detection"
+OUTPUT_FILE  = "skn_dis_project_summary.md"
 
 # File extensions to include in full text dump
 INCLUDE_EXTS = {
@@ -39,13 +39,15 @@ SKIP_DIRS = {
     # OS files
     ".DS_Store", "Thumbs.db",
     # Log folders
-    "logs"
+    "logs",
+    #
+    "data"
 }
 # ───────────────────────────────────────────────────────────
 
 def should_skip_dir(path):
-    parts = path.split(os.sep)
-    return any(part in SKIP_DIRS for part in parts)
+    return any(part in SKIP_DIRS for part in path.split(os.sep))
+
 
 def is_valid_file(filepath):
     _, ext = os.path.splitext(filepath)
@@ -62,20 +64,32 @@ def generate_tree(root_dir):
     tree_lines = []
 
     def walk(dir_path, prefix=""):
+        # Skip entire directory if it's in SKIP_DIRS
+        if should_skip_dir(dir_path):
+            return
+
         try:
             entries = sorted(os.listdir(dir_path))
         except Exception:
             return
-        entries = [e for e in entries if not should_skip_dir(os.path.join(dir_path, e))]
-        entries_count = len(entries)
 
-        for i, entry in enumerate(entries):
-            path = os.path.join(dir_path, entry)
+        # Filter out skipped entries
+        filtered = []
+        for entry in entries:
+            full_path = os.path.join(dir_path, entry)
+            if should_skip_dir(full_path):
+                continue
+            filtered.append(entry)
+
+        entries_count = len(filtered)
+
+        for i, entry in enumerate(filtered):
+            full_path = os.path.join(dir_path, entry)
             connector = "└── " if i == entries_count - 1 else "├── "
             tree_lines.append(f"{prefix}{connector}{entry}")
-            if os.path.isdir(path):
+            if os.path.isdir(full_path):
                 extension = "    " if i == entries_count - 1 else "│   "
-                walk(path, prefix + extension)
+                walk(full_path, prefix + extension)
 
     tree_lines.append(f"{os.path.basename(root_dir)}/")
     walk(root_dir)
