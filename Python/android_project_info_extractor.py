@@ -3,8 +3,8 @@ import re
 
 # ─── CONFIG ───────────────────────────────────────────────────────────
 # Change this to your project folder:
-PROJECT_ROOT = r"D:\skin_disease_detection"
-OUTPUT_FILE  = "skn_dis_project_summary.md"
+PROJECT_ROOT = r"C:\Users\Purve\AndroidStudioProjects\doc_tools"
+OUTPUT_FILE  = "android_project.md"
 
 # File extensions to include in full text dump
 INCLUDE_EXTS = {
@@ -43,7 +43,7 @@ SKIP_DIRS = {
     #
     "data"
 }
-# ───────────────────────────────────────────────────────────
+
 
 def should_skip_dir(path):
     return any(part in SKIP_DIRS for part in path.split(os.sep))
